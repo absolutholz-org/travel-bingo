@@ -2,17 +2,17 @@ import { IInvitation } from './_Invitation.annotations';
 
 export function Invitation({ gameId }: IInvitation): JSX.Element {
   const handleClick = async () => {
+    const url = `${import.meta.env.VITE_APP_URL}/lobby/${gameId}`;
+
     if (navigator.share) {
       await navigator.share({
         title: 'Travel Bingo',
         text: gameId,
-        url: `https://arcade.absolutholz.com/travelbingo/lobby/${gameId}`,
+        url,
       });
       console.log('shared successfully');
     } else {
-      await navigator.clipboard.writeText(
-        `https://arcade.absolutholz.com/travelbingo/lobby/${gameId}`
-      );
+      await navigator.clipboard.writeText(url);
       console.log('copied successfully to clipboard');
     }
   };
