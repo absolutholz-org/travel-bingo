@@ -11,7 +11,7 @@ export function usePlayerContext() {
     );
   }
 
-  const { name, setName } = context;
+  const { player, setPlayer, removePlayer } = context;
 
-  return { name, setName };
+  return { player, setPlayer, removePlayer };
 }

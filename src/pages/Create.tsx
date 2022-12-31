@@ -1,26 +1,42 @@
 import { useNavigate } from 'react-router-dom';
 import { nanoid } from 'nanoid';
+
 import { usePlayerContext } from '../context/PlayerContext';
+import { useGameConfigContext } from '../context/GameConfigContext';
 
 export function Create(): JSX.Element {
-  usePlayerContext();
   const navigate = useNavigate();
+  const { player } = usePlayerContext();
+  const { setGameId, setHost, setPlayers, setParameters } =
+    useGameConfigContext();
 
-  const handleCreateGame = () => {
-    navigate(`/lobby/${nanoid(5)}`);
+  const handleCreateGame = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const gameId = nanoid(5);
+
+    setGameId(gameId);
+    setPlayers(player === null ? [] : [player]);
+    setHost(player);
+    setParameters({
+      size: 5,
+      symbols: ['stop', 'yield'],
+    });
+
+    navigate(`/lobby/${gameId}/host`);
   };
 
   return (
     <main>
       <h1>Create</h1>
 
+      <div>{player?.name}</div>
+
       <form onSubmit={handleCreateGame}>
         <label htmlFor="location">
           <div>Location</div>
           <select id="location">
-            <option selected value="germany">
-              Germany
-            </option>
+            <option value="germany">Germany</option>
           </select>
         </label>
 
@@ -33,7 +49,9 @@ export function Create(): JSX.Element {
           </label>
         </fieldset>
 
-        <button type="submit">Create</button>
+        <button disabled={player === undefined} type="submit">
+          Create
+        </button>
       </form>
     </main>
   );

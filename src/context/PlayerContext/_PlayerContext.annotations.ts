@@ -1,6 +1,9 @@
 import { Dispatch, SetStateAction } from 'react';
 
+import type { Player } from '../../annotations/Player';
+
 export interface IPlayerContext {
-  name?: string;
-  setName: Dispatch<SetStateAction<string | undefined>>;
+  player: Player | null;
+  setPlayer: Dispatch<SetStateAction<Player | null>>;
+  removePlayer: () => void;
 }
