@@ -1,14 +1,13 @@
-export const GlobalReset = css`
+import { css, Global } from '@emotion/react';
+
+/**
+ * https://www.joshwcomeau.com/css/custom-css-reset/
+ */
+const GlobalReset = css`
   *,
   *::before,
   *::after {
     box-sizing: border-box;
-  }
-
-  *::before,
-  *::after {
-    content: '';
-    display: inline-block;
   }
 
   * {
@@ -80,3 +79,7 @@ export const GlobalReset = css`
     width: auto;
   }
 `;
+
+export const GlobalStyles = (): JSX.Element => {
+  return <Global styles={GlobalReset} />;
+};

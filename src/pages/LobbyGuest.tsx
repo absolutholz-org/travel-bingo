@@ -1,9 +1,10 @@
 import { usePubNub } from 'pubnub-react';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import type { Player } from '../annotations/Player';
 import { Invitation } from '../components/Invitation';
+import { GameParameters } from '../context/GameConfigContext/_GameConfigContext.annotations';
 import { useGameConfigContext } from '../context/GameConfigContext/_useGameConfigContext';
 import { usePlayerContext } from '../context/PlayerContext';
 import { MAXIMUM_PLAYERS_ALLOWED } from '../Game.constants';
@@ -12,11 +13,14 @@ import { MessageAction } from './LobbyHost';
 type PlayersMessage = {
   action: MessageAction.UpdatePlayerList;
   players: Player[];
+  parameters: GameParameters;
 };
 
 export function LobbyGuest(): JSX.Element {
+  const navigate = useNavigate();
   const { gameId } = useParams();
-  const { setGameId, players, setPlayers } = useGameConfigContext();
+  const { setGameId, players, setPlayers, setParameters } =
+    useGameConfigContext();
   const { player } = usePlayerContext();
 
   const pubnub = usePubNub();
@@ -26,8 +30,14 @@ export function LobbyGuest(): JSX.Element {
     console.log('handling message', { message });
 
     if (message.action === MessageAction.UpdatePlayerList) {
-      console.log({ message });
       setPlayers(message.players);
+      setParameters(message.parameters);
+      return;
+    }
+
+    if (message.action === MessageAction.StartGame) {
+      navigate(`/game/${gameId}`);
+      return;
     }
   };
 
@@ -35,6 +45,12 @@ export function LobbyGuest(): JSX.Element {
     pubnub.addListener({ message: handleMessage });
     pubnub.subscribe({ channels });
   }, [pubnub, channels]);
+
+  useEffect(() => {
+    if (gameId !== undefined) {
+      setGameId(gameId);
+    }
+  }, [gameId]);
 
   useEffect(() => {
     if (player !== null) {

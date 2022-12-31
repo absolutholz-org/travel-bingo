@@ -13,7 +13,7 @@ export const GameConfigContextProvider = ({
   const [gameId, setGameId] = useState<string | null>(null);
   const [players, setPlayers] = useState<Player[]>([]);
   const [host, setHost] = useState<Player | null>(null);
-  const [parameters, setParameters] = useState<GameParameters>({});
+  const [parameters, setParameters] = useState<GameParameters>({ size: 5 });
 
   const addPlayer = (player: Player) => {
     setPlayers((players) => {

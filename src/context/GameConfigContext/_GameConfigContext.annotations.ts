@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 import type { Player } from '../../annotations/Player';
 
 export interface GameParameters {
-  size?: number;
+  size: number;
   symbols?: string[];
 }
 

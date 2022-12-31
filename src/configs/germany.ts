@@ -1,0 +1,40 @@
+const config = {
+  signs: [
+    { id: 'autobahn-end', file: 'autobahn-end.svg' },
+    {
+      id: 'one-way-street-left-to-right',
+      file: 'one-way-street-left-to-right.svg',
+    },
+    { id: 'speed-limit-50', file: 'speed-limit-50.svg' },
+    { id: 'autobahn', file: 'autobahn.svg' },
+    { id: 'parking', file: 'parking.svg' },
+    { id: 'speed-limit-60', file: 'speed-limit-60.svg' },
+    { id: 'bike-zone', file: 'bike-zone.svg' },
+    {
+      id: 'pedestrian-crosswalk-left-to-right',
+      file: 'pedestrian-crosswalk-left-to-right.svg',
+    },
+    { id: 'speed-limit-70', file: 'speed-limit-70.svg' },
+    { id: 'dead-end-street', file: 'dead-end-street.svg' },
+    { id: 'pedestrian-path', file: 'pedestrian-path.svg' },
+    { id: 'speed-limit-80', file: 'speed-limit-80.svg' },
+    { id: 'detour-left-to-right', file: 'detour-left-to-right.svg' },
+    { id: 'priority-road', file: 'priority-road.svg' },
+    { id: 'speed-limit-90', file: 'speed-limit-90.svg' },
+    { id: 'end-traffic-restrictions', file: 'end-traffic-restrictions.svg' },
+    { id: 'public-transport-stop', file: 'public-transport-stop.svg' },
+    { id: 'stop', file: 'stop.svg' },
+    { id: 'exit-autobahn', file: 'exit-autobahn.svg' },
+    { id: 'speed-limit-100', file: 'speed-limit-100.svg' },
+    { id: 'tunnel', file: 'tunnel.svg' },
+    { id: 'exit-other-street', file: 'exit-other-street.svg' },
+    { id: 'speed-limit-110', file: 'speed-limit-110.svg' },
+    { id: 'yield', file: 'yield.svg' },
+    { id: 'no-entry', file: 'no-entry.svg' },
+    { id: 'speed-limit-120', file: 'speed-limit-120.svg' },
+    { id: 'no-parking', file: 'no-parking.svg' },
+    { id: 'speed-limit-130', file: 'speed-limit-130.svg' },
+  ],
+};
+
+export default config;

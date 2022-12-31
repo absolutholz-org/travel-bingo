@@ -1,16 +1,19 @@
 import { usePubNub } from 'pubnub-react';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import type { Player } from '../annotations/Player';
 import { Invitation } from '../components/Invitation';
 import { useGameConfigContext } from '../context/GameConfigContext/_useGameConfigContext';
-import { usePlayerContext } from '../context/PlayerContext';
-import { MAXIMUM_PLAYERS_ALLOWED } from '../Game.constants';
+import {
+  MAXIMUM_PLAYERS_ALLOWED,
+  MINIMUM_PLAYERS_REQUIRED,
+} from '../Game.constants';
 
 export const enum MessageAction {
   NewJoiner = 'new joiner',
   UpdatePlayerList = 'players updated',
+  StartGame = 'start game',
 }
 
 type NewPlayerMessage = {
@@ -19,8 +22,9 @@ type NewPlayerMessage = {
 };
 
 export function LobbyHost(): JSX.Element {
+  const navigate = useNavigate();
   const { gameId } = useParams();
-  const { setGameId, players, addPlayer } = useGameConfigContext();
+  const { setGameId, players, addPlayer, parameters } = useGameConfigContext();
 
   const pubnub = usePubNub();
   const [channels] = useState([`travel-bingo_${gameId}`]);
@@ -29,9 +33,19 @@ export function LobbyHost(): JSX.Element {
     console.log('handling message', { message });
 
     if (message.action === MessageAction.NewJoiner) {
-      console.log({ message });
       addPlayer(message.player);
+      return;
     }
+  };
+
+  const handleStartGame = () => {
+    pubnub.publish({
+      channel: channels[0],
+      message: {
+        action: MessageAction.StartGame,
+      },
+    });
+    navigate(`/game/${gameId}`);
   };
 
   useEffect(() => {
@@ -52,6 +66,7 @@ export function LobbyHost(): JSX.Element {
       message: {
         action: MessageAction.UpdatePlayerList,
         players,
+        parameters,
       },
     });
   }, [players]);
@@ -76,6 +91,14 @@ export function LobbyHost(): JSX.Element {
           )}
         </ul>
       )}
+
+      <button
+        disabled={players.length < MINIMUM_PLAYERS_REQUIRED}
+        onClick={handleStartGame}
+        type="button"
+      >
+        Start game
+      </button>
     </main>
   );
 }
