@@ -4,7 +4,7 @@ import * as S from './_SignButton.styled';
 
 export function SignButton({
   description,
-  file,
+  filename,
   name,
   onClick,
   status = 'open',
@@ -21,7 +21,7 @@ export function SignButton({
       onClick={handleClick}
       type="button"
     >
-      <img src={`/signs/germany/${file}`} alt={description} />
+      <img src={`/signs/germany/${filename}`} alt={description} />
       {status === 'closed' && (
         <S.SignButton_Check width="24" height="24" viewBox="0 0 24 24">
           <path

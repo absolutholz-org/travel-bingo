@@ -11,7 +11,6 @@ import { Game } from './pages/Game';
 import { NotFound } from './pages/404';
 import { PlayerContextProvider } from './context/PlayerContext';
 import { GameConfigContextProvider } from './context/GameConfigContext/_GameConfigContextProvider';
-import { GamePlayContextProvider } from './context/GamePlayContext';
 import { GlobalStyles } from './styles/reset';
 
 const pubnub = new PubNub({
@@ -32,20 +31,18 @@ function App() {
 
       <PlayerContextProvider>
         <GameConfigContextProvider>
-          <GamePlayContextProvider>
-            <BrowserRouter>
-              <Routes>
-                <Route path="/">
-                  <Route index element={<Home />} />
-                  <Route path="create" element={<Create />} />
-                  <Route path="lobby/:gameId/host" element={<LobbyHost />} />
-                  <Route path="lobby/:gameId" element={<LobbyGuest />} />
-                  <Route path="game/:gameId" element={<Game />} />
-                  <Route path="*" element={<NotFound />} />
-                </Route>
-              </Routes>
-            </BrowserRouter>
-          </GamePlayContextProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/">
+                <Route index element={<Home />} />
+                <Route path="create" element={<Create />} />
+                <Route path="lobby/:gameId/host" element={<LobbyHost />} />
+                <Route path="lobby/:gameId" element={<LobbyGuest />} />
+                <Route path="game/:gameId" element={<Game />} />
+                <Route path="*" element={<NotFound />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
         </GameConfigContextProvider>
       </PlayerContextProvider>
     </PubNubProvider>

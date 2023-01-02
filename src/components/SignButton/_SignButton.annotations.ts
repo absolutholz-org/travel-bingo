@@ -2,7 +2,7 @@ import { GridSquareStatus } from '../../context/GamePlayContext/_GamePlayContext
 
 export interface ISignButton {
   description: string;
-  file: string;
+  filename: string;
   name: string;
   onClick: () => void;
   status?: GridSquareStatus;
