@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 
 export const GameGrid = styled.div`
   border: 2px solid hsl(0 0% 50% / 0.2);
+  border-radius: 0.5rem;
   display: grid;
   gap: 0.25rem;
   grid-template-columns: repeat(5, 1fr);

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 export const SignButton = styled.button`
+  border-radius: 0.25rem;
   padding: 1rem;
   position: relative;
 `;
