@@ -24,9 +24,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       working-directory: .
-      VITE_PUBNUB_PUBLISH_KEY: pub-c-420655f2-9ceb-475d-ae5c-44007d085fa1
-      VITE_PUBNUB_SUBSCRIBE_KEY: sub-c-7061a764-0f86-4b92-92f2-da4126e9c981
-      VITE_APP_URL: https://arcade.absolutholz.com/travelbingo
 
     steps:
       - name: Checkout source code
