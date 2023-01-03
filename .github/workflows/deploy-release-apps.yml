@@ -4,13 +4,14 @@ on:
   workflow_dispatch:
     inputs:
       logLevel:
+        description: 'Log level'
         type: choice
+        required: true
+        default: 'verbose'
         options:
           - minimal
           - standard
-          - verbose'
-        required: true
-        default: 'verbose'
+          - verbose
 
   push:
     branches:
@@ -53,5 +54,5 @@ jobs:
           password: ${{ secrets.WEBGO_SFTP_PASSWORD }}
           protocol: ftp
           local-dir: ./dist/
-          server-dir: /home/www/de.absolutholz.arcade/travel-bingo
+          server-dir: /home/www/de.absolutholz.arcade/travel-bingo/
           log-level: ${{ github.event.inputs.logLevel }}
