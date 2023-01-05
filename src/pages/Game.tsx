@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { FreeSpace } from '../components/FreeSpace';
@@ -11,6 +12,8 @@ import type {
 	GridRow,
 	GridSquare,
 } from '../context/GamePlayContext/_GamePlayContext.annotations';
+import { usePlayerContext } from '../context/PlayerContext';
+import { usePlayerNotification } from '../hooks/usePlayerNotification';
 
 function isNeighborClosed(
 	grid: GridRow[],
@@ -58,25 +61,40 @@ export function Game(): JSX.Element {
 }
 
 function _Game(): JSX.Element {
+	const { gameId } = useParams();
 	const { grid, updateGrid } = useGamePlayContext();
+	const { notifyPlayers } = usePlayerNotification(gameId!, handleMessage);
+	const { player } = usePlayerContext();
 
-	const handleSignClick = (rowIndex: number, columnIndex: number) => {
+	const [gameState, setGameState] = useState<'playing' | 'won' | 'lost'>(
+		'playing'
+	);
+	useEffect(() => {
+		if (gameState === 'won') {
+			alert('game won');
+		}
+		if (gameState === 'lost') {
+			alert('game lost');
+		}
+	}, [gameState]);
+
+	function announceGameWon() {
+		setGameState('won');
+		notifyPlayers({ action: 'gamewon', data: { player: player! } });
+	}
+
+	function handleSignClick(rowIndex: number, columnIndex: number) {
 		if (grid === undefined) return;
 
 		grid[rowIndex][columnIndex].status = 'closed';
 		updateGrid(grid);
-
-		console.log({ grid, rowIndex, columnIndex });
-
-		// // clicked square is not a diagonal
-		// if (rowIndex + columnIndex === grid.length - 1) return;
 
 		// check if column is complete
 		if (
 			isNeighborClosed(grid, rowIndex, columnIndex, -1, 0) &&
 			isNeighborClosed(grid, rowIndex, columnIndex, 1, 0)
 		) {
-			alert('game won');
+			announceGameWon();
 			return;
 		}
 
@@ -85,7 +103,7 @@ function _Game(): JSX.Element {
 			isNeighborClosed(grid, rowIndex, columnIndex, 0, -1) &&
 			isNeighborClosed(grid, rowIndex, columnIndex, 0, 1)
 		) {
-			alert('game won');
+			announceGameWon();
 			return;
 		}
 
@@ -95,7 +113,7 @@ function _Game(): JSX.Element {
 				isNeighborClosed(grid, rowIndex, columnIndex, -1, -1) &&
 				isNeighborClosed(grid, rowIndex, columnIndex, 1, 1)
 			) {
-				alert('game won');
+				announceGameWon();
 				return;
 			}
 		}
@@ -106,7 +124,7 @@ function _Game(): JSX.Element {
 				isNeighborClosed(grid, rowIndex, columnIndex, -1, 1) &&
 				isNeighborClosed(grid, rowIndex, columnIndex, 1, -1)
 			) {
-				alert('game won');
+				announceGameWon();
 				return;
 			}
 		}
@@ -123,10 +141,17 @@ function _Game(): JSX.Element {
 			grid[grid.length - 1][0].status === 'closed' &&
 			grid[grid.length - 1][grid.length - 1].status === 'closed'
 		) {
-			alert('game won');
+			announceGameWon();
 			return;
 		}
-	};
+	}
+
+	function handleMessage({ message }: { message: any }) {
+		console.log('handling message', { message });
+		if (message.action === 'gamewon') {
+			setGameState('lost');
+		}
+	}
 
 	const _GridSquare = ({
 		gridSquare,
