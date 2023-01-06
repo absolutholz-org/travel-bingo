@@ -83,7 +83,15 @@ function _Game(): JSX.Element {
 		notifyPlayers({ action: 'gamewon', data: { player: player! } });
 	}
 
-	function handleSignClick(rowIndex: number, columnIndex: number) {
+	function handleSignClick({
+		rowIndex,
+		columnIndex,
+		sign,
+	}: {
+		rowIndex: number;
+		columnIndex: number;
+		sign: string;
+	}) {
 		if (grid === undefined) return;
 
 		grid[rowIndex][columnIndex].status = 'closed';
@@ -144,12 +152,24 @@ function _Game(): JSX.Element {
 			announceGameWon();
 			return;
 		}
+
+		notifyPlayers({
+			action: 'matchedsign',
+			data: { player: player!, sign: { id: sign } },
+		});
 	}
 
 	function handleMessage({ message }: { message: any }) {
-		console.log('handling message', { message });
+		console.log('handling message', { message, player });
+
+		// if (message.data.player.id !== player!.id) return;
+
 		if (message.action === 'gamewon') {
 			setGameState('lost');
+		}
+
+		if (message.action === 'matchedsign') {
+			alert(`${message.data.player.name} found ${message.data.sign.id}`);
 		}
 	}
 
@@ -169,7 +189,13 @@ function _Game(): JSX.Element {
 						description={gridSquare.id}
 						filename={gridSquare.filename}
 						name={gridSquare.id}
-						onClick={() => handleSignClick(rowIndex, columnIndex)}
+						onClick={() =>
+							handleSignClick({
+								rowIndex,
+								columnIndex,
+								sign: gridSquare.id,
+							})
+						}
 						status={gridSquare.status}
 					/>
 				) : (

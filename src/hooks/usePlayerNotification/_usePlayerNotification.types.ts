@@ -1,6 +1,6 @@
 import type { Player } from '../../annotations/Player';
 
-type NotificationAction = 'newplayer' | 'gamewon';
+type NotificationAction = 'newplayer' | 'gamewon' | 'matchedsign';
 
 type NotificationMessageBase = {
 	action: NotificationAction;
@@ -21,4 +21,17 @@ interface GameWonMessage extends NotificationMessageBase {
 	};
 }
 
-export type NotificationMessage = NewPlayerMessage | GameWonMessage;
+interface MatchedSignMessage extends NotificationMessageBase {
+	action: 'matchedsign';
+	data: {
+		player: Player;
+		sign: {
+			id: string;
+		};
+	};
+}
+
+export type NotificationMessage =
+	| NewPlayerMessage
+	| GameWonMessage
+	| MatchedSignMessage;
