@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "signs": "svgo -r -f ./public/signs"
+    "signs": "svgo -r -f ./public/signs/originals -o ./public/signs/optimized"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
