@@ -560,7 +560,7 @@ const config = {
 		},
 		{
 			id: '281_ueberholverbot-kraftfahrzeuge-schwer-ende',
-			filename: '281_ueberholverbot-kraftfahrzeuge-schwer.svg',
+			filename: '281_ueberholverbot-kraftfahrzeuge-schwer-ende.svg',
 			name: {
 				de: 'Ende des Überholverbotes für Kraftfahrzeuge über 3,5 t',
 			},
