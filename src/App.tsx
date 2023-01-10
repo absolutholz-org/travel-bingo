@@ -11,42 +11,50 @@ import { Game } from './pages/Game';
 import { NotFound } from './pages/404';
 import { PlayerContextProvider } from './context/PlayerContext';
 import { GameConfigContextProvider } from './context/GameConfigContext/_GameConfigContextProvider';
-import { GlobalStyles } from './styles/reset';
+import { GlobalReset } from './styles/reset';
+import { GlobalTheme } from './styles/theme';
 
 const pubnub = new PubNub({
-  publishKey: import.meta.env.VITE_PUBNUB_PUBLISH_KEY,
-  subscribeKey: import.meta.env.VITE_PUBNUB_SUBSCRIBE_KEY,
-  userId: nanoid(),
+	publishKey: import.meta.env.VITE_PUBNUB_PUBLISH_KEY,
+	subscribeKey: import.meta.env.VITE_PUBNUB_SUBSCRIBE_KEY,
+	userId: nanoid(),
 });
 console.log({
-  publishKey: import.meta.env.VITE_PUBNUB_PUBLISH_KEY,
-  subscribeKey: import.meta.env.VITE_PUBNUB_SUBSCRIBE_KEY,
-  userId: nanoid(),
+	publishKey: import.meta.env.VITE_PUBNUB_PUBLISH_KEY,
+	subscribeKey: import.meta.env.VITE_PUBNUB_SUBSCRIBE_KEY,
+	userId: nanoid(),
 });
 
 function App() {
-  return (
-    <PubNubProvider client={pubnub}>
-      <GlobalStyles />
+	return (
+		<PubNubProvider client={pubnub}>
+			<GlobalReset />
+			<GlobalTheme />
 
-      <PlayerContextProvider>
-        <GameConfigContextProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/">
-                <Route index element={<Home />} />
-                <Route path="create" element={<Create />} />
-                <Route path="lobby/:gameId/host" element={<LobbyHost />} />
-                <Route path="lobby/:gameId" element={<LobbyGuest />} />
-                <Route path="game/:gameId" element={<Game />} />
-                <Route path="*" element={<NotFound />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </GameConfigContextProvider>
-      </PlayerContextProvider>
-    </PubNubProvider>
-  );
+			<PlayerContextProvider>
+				<GameConfigContextProvider>
+					<BrowserRouter>
+						<Routes>
+							<Route path="/">
+								<Route index element={<Home />} />
+								<Route path="create" element={<Create />} />
+								<Route
+									path="lobby/:gameId/host"
+									element={<LobbyHost />}
+								/>
+								<Route
+									path="lobby/:gameId"
+									element={<LobbyGuest />}
+								/>
+								<Route path="game/:gameId" element={<Game />} />
+								<Route path="*" element={<NotFound />} />
+							</Route>
+						</Routes>
+					</BrowserRouter>
+				</GameConfigContextProvider>
+			</PlayerContextProvider>
+		</PubNubProvider>
+	);
 }
 
 export default App;

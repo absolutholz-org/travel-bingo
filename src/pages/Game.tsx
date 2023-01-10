@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { Container } from '../components/Container';
 import { FreeSpace } from '../components/FreeSpace';
 import { GameGrid } from '../components/GameGrid';
 import { SignButton } from '../components/SignButton/_SignButton';
@@ -207,22 +208,24 @@ function _Game(): JSX.Element {
 
 	return (
 		<main>
-			<h1>Game</h1>
+			<Container>
+				<h1>Game</h1>
 
-			{grid && (
-				<GameGrid>
-					{grid.map((gridRow, rowIndex) =>
-						gridRow.map((gridSquare, columnIndex) => (
-							<_GridSquare
-								columnIndex={columnIndex}
-								gridSquare={gridSquare}
-								key={`bingo-grid_${rowIndex}x${columnIndex}`}
-								rowIndex={rowIndex}
-							/>
-						))
-					)}
-				</GameGrid>
-			)}
+				{grid && (
+					<GameGrid>
+						{grid.map((gridRow, rowIndex) =>
+							gridRow.map((gridSquare, columnIndex) => (
+								<_GridSquare
+									columnIndex={columnIndex}
+									gridSquare={gridSquare}
+									key={`bingo-grid_${rowIndex}x${columnIndex}`}
+									rowIndex={rowIndex}
+								/>
+							))
+						)}
+					</GameGrid>
+				)}
+			</Container>
 		</main>
 	);
 }
