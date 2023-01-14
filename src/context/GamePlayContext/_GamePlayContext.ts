@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
-import type { IGamePlayContext } from './_GamePlayContext.annotations';
+import type { GamePlayContext } from './_GamePlayContext.annotations';
 
-const GamePlayContext = createContext<IGamePlayContext | undefined>(undefined);
+const GamePlayContext = createContext<GamePlayContext | undefined>(undefined);
 
 export default GamePlayContext;

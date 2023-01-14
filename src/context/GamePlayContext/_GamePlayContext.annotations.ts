@@ -1,17 +1,28 @@
-import { Dispatch, SetStateAction } from 'react';
 import { GridSquareStatus } from './_GamePlayContext.types';
 
 export type GridSquare = {
-  id: string;
-  filename: string;
-  status: GridSquareStatus;
+	col: number;
+	id: string;
+	filename?: string;
+	row: number;
+	status: GridSquareStatus;
 };
 
-export type GridRow = GridSquare[];
+export type Grid = Record<string, GridSquare>;
 
-export interface IGamePlayContext {
-  grid?: GridRow[];
-  updateGrid: (grid: GridRow[]) => void;
-  // setGameId: Dispatch<SetStateAction<string | null>>;
-  setSize: Dispatch<SetStateAction<number>>;
-}
+export type GamePlayState = {
+	grid: Grid;
+};
+
+export type GamePlayReducerAction = {
+	type: 'SymbolFound';
+	payload: {
+		row: number;
+		col: number;
+	};
+};
+
+export type GamePlayContext = {
+	state: GamePlayState;
+	dispatch: (action: GamePlayReducerAction) => void;
+};

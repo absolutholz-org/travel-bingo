@@ -10,6 +10,10 @@ export const SignButton = styled.button`
 	position: relative;
 `;
 
+export const SignButton_Symbol = styled.img`
+	max-height: 100%;
+`;
+
 export const SignButton_Check = styled.svg`
 	background: radial-gradient(
 			circle,

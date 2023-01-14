@@ -22,7 +22,7 @@ export function SignButton({
 			onClick={handleClick}
 			type="button"
 		>
-			<img
+			<S.SignButton_Symbol
 				src={`${SIGN_DIRECTORY}germany/${filename}`}
 				alt={description}
 			/>
