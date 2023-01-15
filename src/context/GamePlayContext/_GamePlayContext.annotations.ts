@@ -1,4 +1,4 @@
-import { GridSquareStatus } from './_GamePlayContext.types';
+import { GameState, GridSquareStatus } from './_GamePlayContext.types';
 
 export type GridSquare = {
 	col: number;
@@ -11,6 +11,7 @@ export type GridSquare = {
 export type Grid = Record<string, GridSquare>;
 
 export type GamePlayState = {
+	gameState: GameState;
 	grid: Grid;
 };
 

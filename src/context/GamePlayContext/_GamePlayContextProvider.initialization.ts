@@ -39,17 +39,20 @@ export function initGame(gameId: string): GamePlayState | undefined {
 
 	const lastIndex = size - 1;
 	const middleIndex = lastIndex / 2;
-	grid[`${lastIndex}x${lastIndex}`] = {
+	const middleSquare = {
 		...grid[`${middleIndex}x${middleIndex}`],
 	};
+	middleSquare.col = lastIndex;
+	middleSquare.row = lastIndex;
+	grid[`${lastIndex}x${lastIndex}`] = middleSquare;
 	grid[`${middleIndex}x${middleIndex}`] = {
 		col: middleIndex,
 		id: 'free',
 		row: middleIndex,
 		status: 'closed',
 	};
-
-	const state = { grid };
+	debugger;
+	const state: GamePlayState = { gameState: 'playing', grid };
 
 	persistState(gameId, state);
 

@@ -59,7 +59,15 @@ const _GridSquare = ({
 
 function _Game(): JSX.Element {
 	const { state } = useGamePlayContext();
-	const { grid } = state;
+	const { gameState, grid } = state;
+
+	function handleBingoClick() {
+		if (gameState === 'winnable') {
+			alert('BINGO!');
+		} else {
+			alert('Not so fast');
+		}
+	}
 
 	return (
 		<main>
@@ -76,6 +84,12 @@ function _Game(): JSX.Element {
 						))}
 					</GameGrid>
 				)}
+
+				<div>
+					<Button>
+						<button onClick={handleBingoClick}>BINGO!</button>
+					</Button>
+				</div>
 			</Container>
 		</main>
 	);
