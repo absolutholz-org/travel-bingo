@@ -18,7 +18,11 @@ export function initGame(gameId: string): GamePlayState | undefined {
 	const { parameters } = JSON.parse(gameConfig);
 	const { size } = parameters;
 
-	const symbols = shuffle(germanyConfig.signs).slice(0, size ** 2 - 1);
+	const symbols = shuffle(
+		germanyConfig.signs.filter((symbol) =>
+			parameters.symbols.includes(symbol.id)
+		)
+	).slice(0, size ** 2 - 1);
 
 	const grid: Grid = {};
 
@@ -51,7 +55,7 @@ export function initGame(gameId: string): GamePlayState | undefined {
 		row: middleIndex,
 		status: 'closed',
 	};
-	debugger;
+
 	const state: GamePlayState = { gameState: 'playing', grid };
 
 	persistState(gameId, state);

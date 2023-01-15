@@ -1,3 +1,4 @@
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 
@@ -7,7 +8,11 @@ import { Container } from '../components/Container';
 import { Button } from '../components/Button';
 import germanyConfig from '../configs/germany';
 import styled from '@emotion/styled';
-import { SIGN_DIRECTORY } from '../Game.constants';
+import {
+	FREE_SPACE_POSITION,
+	SIGN_DIRECTORY,
+	WINNING_COMBINATIONS,
+} from '../Game.constants';
 
 const tags = [
 	...new Set(
@@ -29,7 +34,6 @@ const colors = [
 const shapes = [
 	...new Set(germanyConfig.signs.map(({ shape }) => shape).flat()),
 ];
-console.log({ tags });
 
 const SignLabelList = styled.div`
 	display: grid;
@@ -56,10 +60,16 @@ const SignLabelLabel = styled.div`
 export function Create(): JSX.Element {
 	const navigate = useNavigate();
 	const { player } = usePlayerContext();
-	const { setGameId, setHost, setPlayers, setParameters } =
+	const { setGameId, setHost, setPlayers, parameters, setParameters } =
 		useGameConfigContext();
 
-	const handleCreateGame = (event: React.FormEvent<HTMLFormElement>) => {
+	const [selectedFrequencies, setSelectedFrequencies] = useState(frequencies);
+
+	const [symbols, setSymbols] = useState(
+		germanyConfig.signs.map((symbol) => symbol.id)
+	);
+
+	function handleCreateGame(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 
 		const gameId = nanoid(5);
@@ -67,13 +77,59 @@ export function Create(): JSX.Element {
 		setGameId(gameId);
 		setPlayers(player === null ? [] : [player]);
 		setHost(player);
-		setParameters({
-			size: 5,
-			symbols: ['stop', 'yield'],
+		setParameters((parameters) => {
+			return { ...parameters, symbols };
 		});
+		// setParameters({
+		// 	size: 5,
+		// 	combos: ['columns', 'rows', 'diagonals', 'corners'],
+		// 	freeSpace: 'center',
+		// 	symbols: ['stop', 'yield'],
+		// });
 
 		navigate(`/lobby/${gameId}/host`);
-	};
+	}
+
+	console.log({ parameters, selectedFrequencies });
+
+	function handleComboChange(event: ChangeEvent<HTMLInputElement>) {
+		setParameters((parameters) => {
+			const combos = event.target.checked
+				? [...parameters.combos, event.target.value]
+				: parameters.combos.filter(
+						(combo) => combo !== event.target.value
+				  );
+			return { ...parameters, combos };
+		});
+	}
+
+	function handleFreeSpaceChange(event: ChangeEvent<HTMLInputElement>) {
+		setParameters((parameters) => {
+			return { ...parameters, freeSpace: event.target.value };
+		});
+	}
+
+	function handleFrequencyChange(event: ChangeEvent<HTMLInputElement>) {
+		setSelectedFrequencies((frequencies) => {
+			if (event.target.checked) {
+				return [...frequencies, event.target.value];
+			}
+
+			return frequencies.filter(
+				(frequency) => frequency !== event.target.value
+			);
+		});
+	}
+
+	function handleSymbolChange(event: ChangeEvent<HTMLInputElement>) {
+		setSymbols((symbols) => {
+			if (event.target.checked) {
+				return [...symbols, event.target.value];
+			}
+
+			return symbols.filter((symbol) => symbol !== event.target.value);
+		});
+	}
 
 	return (
 		<main>
@@ -83,116 +139,126 @@ export function Create(): JSX.Element {
 				<div>{player?.name}</div>
 
 				<h2>Rules</h2>
+
 				<form onSubmit={handleCreateGame}>
 					<fieldset>
 						<legend>Winning combinations</legend>
-						<label htmlFor="rows">
-							<input checked={true} id="rows" type="checkbox" />
-							Rows
-						</label>
-						<label htmlFor="columns">
-							<input
-								checked={true}
-								id="columns"
-								type="checkbox"
-							/>
-							Columns
-						</label>
-						<label htmlFor="diagonals">
-							<input
-								checked={true}
-								id="diagonals"
-								type="checkbox"
-							/>
-							Diagonals
-						</label>
-						<label htmlFor="corners">
-							<input
-								checked={true}
-								id="corners"
-								type="checkbox"
-							/>
-							Corners
-						</label>
+
+						{WINNING_COMBINATIONS.map((combo) => (
+							<label
+								htmlFor={`combos_${combo}`}
+								key={`combos_${combo}`}
+							>
+								<input
+									checked={parameters.combos.includes(combo)}
+									id={`combos_${combo}`}
+									onChange={handleComboChange}
+									type="checkbox"
+									value={combo}
+								/>
+								{combo}
+							</label>
+						))}
 					</fieldset>
 
-					{/* <label htmlFor="location">
-						<div>Location</div>
-						<select id="location">
-							<option value="germany">Germany</option>
-						</select>
-					</label> */}
+					<fieldset>
+						<legend>Free space</legend>
 
-					{/* <fieldset>
-						<legend>Signs</legend>
-            
-						<label htmlFor="sign_x">
-							<input id="sign_x" type="checkbox" />
-							<div>Sign X</div>
-						</label>
-					</fieldset> */}
+						{FREE_SPACE_POSITION.map((space) => (
+							<label
+								htmlFor={`free-space_${space}`}
+								key={`free-space_${space}`}
+							>
+								<input
+									checked={parameters.freeSpace === space}
+									id={`free-space_${space}`}
+									name="free-space"
+									onChange={handleFreeSpaceChange}
+									type="radio"
+									value={space}
+								/>
+								{space}
+							</label>
+						))}
+					</fieldset>
 
 					<h2>Signs</h2>
+
+					<div>Currently selected: {symbols.length} symbols</div>
 
 					<fieldset>
 						<legend>Frequency</legend>
 
 						{frequencies.map((frequency) => (
-							<label htmlFor={`frequency_${frequency}`}>
+							<label
+								htmlFor={`frequency_${frequency}`}
+								key={`frequency_${frequency}`}
+							>
 								<input
-									checked={true}
+									checked={selectedFrequencies.includes(
+										frequency
+									)}
 									id={`frequency_${frequency}`}
+									onChange={handleFrequencyChange}
 									type="checkbox"
+									value={frequency}
 								/>
 								{frequency}
 							</label>
 						))}
 					</fieldset>
 
-					<fieldset>
-						<legend>Location</legend>
+					{false && (
+						<>
+							<fieldset>
+								<legend>Location</legend>
 
-						{locations.map((location) => (
-							<label htmlFor={`location_${location}`}>
-								<input
-									checked={true}
-									id={`location_${location}`}
-									type="checkbox"
-								/>
-								{location}
-							</label>
-						))}
-					</fieldset>
+								{locations.map((location) => (
+									<label htmlFor={`location_${location}`}>
+										<input
+											checked={true}
+											id={`location_${location}`}
+											type="checkbox"
+										/>
+										{location}
+									</label>
+								))}
+							</fieldset>
 
-					<fieldset>
-						<legend>Tags</legend>
+							<fieldset>
+								<legend>Tags</legend>
 
-						{tags.map((tag) => (
-							<label htmlFor={`tag_${tag}`}>
-								<input
-									checked={true}
-									id={`tag_${tag}`}
-									type="checkbox"
-								/>
-								{tag}
-							</label>
-						))}
-					</fieldset>
+								{tags.map((tag) => (
+									<label htmlFor={`tag_${tag}`}>
+										<input
+											checked={true}
+											id={`tag_${tag}`}
+											type="checkbox"
+										/>
+										{tag}
+									</label>
+								))}
+							</fieldset>
 
-					<fieldset>
-						<legend>Colors</legend>
+							<fieldset>
+								<legend>Colors</legend>
 
-						{colors.map((color) => (
-							<label htmlFor={`color_${color}`}>
-								<input
-									checked={true}
-									id={`color_${color}`}
-									type="checkbox"
-								/>
-								{color}
-							</label>
-						))}
-					</fieldset>
+								{colors.map((color) => (
+									<label
+										htmlFor={`color_${color}`}
+										key={`color_${color}`}
+									>
+										<input
+											checked={true}
+											id={`color_${color}`}
+											type="checkbox"
+										/>
+										{color}
+									</label>
+								))}
+							</fieldset>
+						</>
+					)}
 
 					<fieldset>
 						<legend>Included signs</legend>
@@ -211,11 +277,13 @@ export function Create(): JSX.Element {
 												src={`${SIGN_DIRECTORY}germany/${filename}`}
 											/>
 										</SignLabelImage>
-										{/* <input
-											checked={true}
+										<input
+											checked={symbols.includes(id)}
 											id={`sign_${id}`}
+											onChange={handleSymbolChange}
 											type="checkbox"
-										/> */}
+											value={id}
+										/>
 										<SignLabelLabel>
 											{name.de}
 										</SignLabelLabel>
