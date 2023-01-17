@@ -64,6 +64,10 @@ export function Create(): JSX.Element {
 		useGameConfigContext();
 
 	const [selectedFrequencies, setSelectedFrequencies] = useState(frequencies);
+	const [selectedLocations, setSelectedLocations] = useState(locations);
+
+	const [showIndividualSymbolSelection, setShowIndividualSymbolSelection] =
+		useState(false);
 
 	const [symbols, setSymbols] = useState(
 		germanyConfig.signs.map((symbol) => symbol.id)
@@ -80,17 +84,9 @@ export function Create(): JSX.Element {
 		setParameters((parameters) => {
 			return { ...parameters, symbols };
 		});
-		// setParameters({
-		// 	size: 5,
-		// 	combos: ['columns', 'rows', 'diagonals', 'corners'],
-		// 	freeSpace: 'center',
-		// 	symbols: ['stop', 'yield'],
-		// });
 
 		navigate(`/lobby/${gameId}/host`);
 	}
-
-	console.log({ parameters, selectedFrequencies });
 
 	function handleComboChange(event: ChangeEvent<HTMLInputElement>) {
 		setParameters((parameters) => {
@@ -121,6 +117,28 @@ export function Create(): JSX.Element {
 		});
 	}
 
+	function handleLocationChange(event: ChangeEvent<HTMLInputElement>) {
+		setSelectedLocations((locations) => {
+			if (event.target.checked) {
+				return [...locations, event.target.value];
+			}
+
+			return locations.filter(
+				(location) => location !== event.target.value
+			);
+		});
+	}
+
+	function handleTagChange(event: ChangeEvent<HTMLInputElement>) {
+		setSelectedTags((tags) => {
+			if (event.target.checked) {
+				return [...tags, event.target.value];
+			}
+
+			return tags.filter((tag) => tag !== event.target.value);
+		});
+	}
+
 	function handleSymbolChange(event: ChangeEvent<HTMLInputElement>) {
 		setSymbols((symbols) => {
 			if (event.target.checked) {
@@ -130,6 +148,32 @@ export function Create(): JSX.Element {
 			return symbols.filter((symbol) => symbol !== event.target.value);
 		});
 	}
+
+	useEffect(() => {
+		setSymbols(
+			germanyConfig.signs
+				.filter((symbol) => {
+					const isMatchingFrequency = selectedFrequencies.includes(
+						symbol.frequency
+					);
+					const isMatchingLocation = symbol.locations.some(
+						(location) => selectedLocations.includes(location)
+					);
+					// const isMatchingTag =
+					// 	symbol.tags === undefined
+					// 		? false
+					// 		: symbol.tags.some((tag) =>
+					// 				selectedTags.includes(tag)
+					// 		  );
+					return (
+						isMatchingFrequency && isMatchingLocation
+						// &&
+						// isMatchingTag
+					);
+				})
+				.map((symbol) => symbol.id)
+		);
+	}, [selectedFrequencies, selectedLocations]);
 
 	return (
 		<main>
@@ -208,90 +252,75 @@ export function Create(): JSX.Element {
 						))}
 					</fieldset>
 
-					{false && (
-						<>
-							<fieldset>
-								<legend>Location</legend>
-
-								{locations.map((location) => (
-									<label htmlFor={`location_${location}`}>
-										<input
-											checked={true}
-											id={`location_${location}`}
-											type="checkbox"
-										/>
-										{location}
-									</label>
-								))}
-							</fieldset>
-
-							<fieldset>
-								<legend>Tags</legend>
-
-								{tags.map((tag) => (
-									<label htmlFor={`tag_${tag}`}>
-										<input
-											checked={true}
-											id={`tag_${tag}`}
-											type="checkbox"
-										/>
-										{tag}
-									</label>
-								))}
-							</fieldset>
-
-							<fieldset>
-								<legend>Colors</legend>
-
-								{colors.map((color) => (
-									<label
-										htmlFor={`color_${color}`}
-										key={`color_${color}`}
-									>
-										<input
-											checked={true}
-											id={`color_${color}`}
-											type="checkbox"
-										/>
-										{color}
-									</label>
-								))}
-							</fieldset>
-						</>
-					)}
-
 					<fieldset>
-						<legend>Included signs</legend>
+						<legend>Location</legend>
 
-						<SignLabelList>
-							{germanyConfig.signs.map(
-								({ filename, id, name }) => (
-									<SignLabel
-										htmlFor={`sign_${id}`}
-										key={`sign_${id}`}
-									>
-										<SignLabelImage>
-											<img
-												alt={id}
-												loading="lazy"
-												src={`${SIGN_DIRECTORY}germany/${filename}`}
-											/>
-										</SignLabelImage>
-										<input
-											checked={symbols.includes(id)}
-											id={`sign_${id}`}
-											onChange={handleSymbolChange}
-											type="checkbox"
-											value={id}
-										/>
-										<SignLabelLabel>
-											{name.de}
-										</SignLabelLabel>
-									</SignLabel>
-								)
-							)}
-						</SignLabelList>
+						{locations.map((location) => (
+							<label
+								htmlFor={`location_${location}`}
+								key={`location_${location}`}
+							>
+								<input
+									checked={selectedLocations.includes(
+										location
+									)}
+									id={`location_${location}`}
+									onChange={handleLocationChange}
+									type="checkbox"
+									value={location}
+								/>
+								{location}
+							</label>
+						))}
 					</fieldset>
+
+					<button
+						aria-checked={showIndividualSymbolSelection}
+						onClick={() =>
+							setShowIndividualSymbolSelection(
+								!showIndividualSymbolSelection
+							)
+						}
+						role="switch"
+						type="button"
+					>
+						Advanced selection
+					</button>
+
+					{showIndividualSymbolSelection && (
+						<fieldset>
+							<legend>Included signs</legend>
+
+							<SignLabelList>
+								{germanyConfig.signs.map(
+									({ filename, id, name }) => (
+										<SignLabel
+											htmlFor={`sign_${id}`}
+											key={`sign_${id}`}
+										>
+											<SignLabelImage>
+												<img
+													alt={id}
+													loading="lazy"
+													src={`${SIGN_DIRECTORY}germany/${filename}`}
+												/>
+											</SignLabelImage>
+											<input
+												checked={symbols.includes(id)}
+												id={`sign_${id}`}
+												onChange={handleSymbolChange}
+												type="checkbox"
+												value={id}
+											/>
+											<SignLabelLabel>
+												{name.de}
+											</SignLabelLabel>
+										</SignLabel>
+									)
+								)}
+							</SignLabelList>
+						</fieldset>
+					)}
 
 					<button disabled={player === undefined} type="submit">
 						<Button>Create</Button>
