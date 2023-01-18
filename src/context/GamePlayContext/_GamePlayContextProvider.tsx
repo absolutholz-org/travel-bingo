@@ -6,16 +6,17 @@ import type {
 	GamePlayState,
 	Grid,
 } from './_GamePlayContext.annotations';
-import { IGamePlayContextProvider } from './_GamePlayContextProvider.annotations';
+import type { IGamePlayContextProvider } from './_GamePlayContextProvider.annotations';
 import { persistState } from './_GamePlayContext.storage';
 import { initGame } from './_GamePlayContextProvider.initialization';
-import { usePlayerNotification } from '../../hooks/usePlayerNotification';
+// import { usePlayerNotification } from '../../hooks/usePlayerNotification';
 import { checkIfGameWon } from './_GamePlayContextProvider.checks';
 
 export const GamePlayContextProvider = ({
 	children,
 	gameId,
 }: IGamePlayContextProvider): JSX.Element => {
+	// @ts-ignore - because fuck you react and typescript documentation
 	const [state, dispatch] = useReducer(reducer, undefined, () =>
 		initGame(gameId)
 	);
@@ -35,7 +36,10 @@ export const GamePlayContextProvider = ({
 	// 	}
 	// }
 
-	function reducer(state: GamePlayState, action: GamePlayReducerAction) {
+	function reducer(
+		state: GamePlayState,
+		action: GamePlayReducerAction
+	): GamePlayState {
 		switch (action.type) {
 			case 'SymbolFound':
 				const newState = { ...state };

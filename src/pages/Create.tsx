@@ -14,25 +14,11 @@ import {
 	WINNING_COMBINATIONS,
 } from '../Game.constants';
 
-const tags = [
-	...new Set(
-		germanyConfig.signs
-			.map(({ tags }) => tags)
-			.flat()
-			.filter((tag) => tag !== undefined)
-	),
-];
 const frequencies = [
 	...new Set(germanyConfig.signs.map(({ frequency }) => frequency).flat()),
 ];
 const locations = [
 	...new Set(germanyConfig.signs.map(({ locations }) => locations).flat()),
-];
-const colors = [
-	...new Set(germanyConfig.signs.map(({ colors }) => colors).flat()),
-];
-const shapes = [
-	...new Set(germanyConfig.signs.map(({ shape }) => shape).flat()),
 ];
 
 const SignLabelList = styled.div`
@@ -129,16 +115,6 @@ export function Create(): JSX.Element {
 		});
 	}
 
-	function handleTagChange(event: ChangeEvent<HTMLInputElement>) {
-		setSelectedTags((tags) => {
-			if (event.target.checked) {
-				return [...tags, event.target.value];
-			}
-
-			return tags.filter((tag) => tag !== event.target.value);
-		});
-	}
-
 	function handleSymbolChange(event: ChangeEvent<HTMLInputElement>) {
 		setSymbols((symbols) => {
 			if (event.target.checked) {
@@ -159,17 +135,7 @@ export function Create(): JSX.Element {
 					const isMatchingLocation = symbol.locations.some(
 						(location) => selectedLocations.includes(location)
 					);
-					// const isMatchingTag =
-					// 	symbol.tags === undefined
-					// 		? false
-					// 		: symbol.tags.some((tag) =>
-					// 				selectedTags.includes(tag)
-					// 		  );
-					return (
-						isMatchingFrequency && isMatchingLocation
-						// &&
-						// isMatchingTag
-					);
+					return isMatchingFrequency && isMatchingLocation;
 				})
 				.map((symbol) => symbol.id)
 		);

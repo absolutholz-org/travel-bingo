@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 
 import GameConfigContext from './_GameConfigContext';
 import type { IGameConfigContextProvider } from './_GameConfigContextProvider.annotations';
-import { STORAGE_PREFIX } from '../../Game.constants';
+import { STORAGE_PREFIX, WINNING_COMBINATIONS } from '../../Game.constants';
 import { GameConfig, GameParameters } from './_GameConfigContext.annotations';
 import { Player } from '../../annotations/Player';
 
 const DEFAULT_PARAMETERS = {
 	size: 5,
-	combos: ['rows', 'columns', 'diagonals', 'corners'],
+	combos: WINNING_COMBINATIONS,
 	freeSpace: 'center',
 };
 
