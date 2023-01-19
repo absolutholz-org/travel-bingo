@@ -38,7 +38,9 @@ const globalThemeStyles = css`
 
 		background: hsl(var(--surface));
 		color: hsl(var(--on-surface));
-		font: normal 1em / 1.4 Tahoma, sans-serif;
+		font: normal 1em / 1.5 system-ui, -apple-system, BlinkMacSystemFont,
+			'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+			'Droid Sans', 'Helvetica Neue', sans-serif;
 	}
 
 	a {

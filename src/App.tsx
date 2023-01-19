@@ -33,7 +33,7 @@ function App() {
 
 			<PlayerContextProvider>
 				<GameConfigContextProvider>
-					<BrowserRouter>
+					<BrowserRouter basename="/travelbingo">
 						<Routes>
 							<Route path="/">
 								<Route index element={<Home />} />
