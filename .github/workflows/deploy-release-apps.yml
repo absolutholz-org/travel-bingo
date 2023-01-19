@@ -43,7 +43,7 @@ jobs:
         working-directory: ${{ env.working-directory }}
 
       - name: Deploy code
-        uses: appleboy/scp-action@v1
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.WEBGO_SFTP_HOST }}
           username: ${{ secrets.WEBGO_SFTP_USERNAME }}
