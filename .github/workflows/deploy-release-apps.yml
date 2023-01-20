@@ -43,7 +43,7 @@ jobs:
         working-directory: ${{ env.working-directory }}
 
       - name: Deploy code
-        uses: mdallasanta/ssh-scp-deploy@{version}
+        uses: marcodallasanta/ssh-scp-deploy@v1.2.0
         with:
           local: './dist/'
           remote: '/home/www/de.absolutholz.arcade/travelbingo/'
