@@ -45,7 +45,7 @@ jobs:
       - name: Deploy code
         uses: marcodallasanta/ssh-scp-deploy@v1.2.0
         with:
-          local: './dist/'
+          local: './dist/*'
           remote: '/home/www/de.absolutholz.arcade/travelbingo/'
           host: ${{secrets.WEBGO_SFTP_HOST}}
           user: ${{secrets.WEBGO_SFTP_USERNAME}}
