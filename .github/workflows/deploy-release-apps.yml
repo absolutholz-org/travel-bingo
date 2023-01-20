@@ -43,11 +43,10 @@ jobs:
         working-directory: ${{ env.working-directory }}
 
       - name: Deploy code
-        uses: appleboy/scp-action@master
+        uses: mdallasanta/ssh-scp-deploy@{version}
         with:
-          host: ${{ secrets.WEBGO_SFTP_HOST }}
-          username: ${{ secrets.WEBGO_SFTP_USERNAME }}
-          password: ${{ secrets.WEBGO_SFTP_PASSWORD }}
-          source: "./dist/"
-          target: "/home/www/de.absolutholz.arcade/travelbingo/"
-          strip_components: 1
+          local: './dist/'
+          remote: '/home/www/de.absolutholz.arcade/travelbingo/'
+          host: ${{secrets.WEBGO_SFTP_HOST}}
+          user: ${{secrets.WEBGO_SFTP_USERNAME}}
+          password: ${{secrets.WEBGO_SFTP_PASSWORD}}
