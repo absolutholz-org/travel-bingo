@@ -48,5 +48,5 @@ jobs:
           host: ${{ secrets.WEBGO_SFTP_HOST }}
           username: ${{ secrets.WEBGO_SFTP_USERNAME }}
           password: ${{ secrets.WEBGO_SFTP_PASSWORD }}
-          source: ./dist/*
-          target: /home/www/de.absolutholz.arcade/travelbingo/
+          source: "./dist/*"
+          target: "/home/www/de.absolutholz.arcade/travelbingo/"
