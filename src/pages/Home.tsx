@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../components/Button';
 import { Container } from '../components/Container';
 import { UserMgmt } from '../components/UserMgmt';
+import { Text } from '../components/Text';
+import { Divider } from '../components/Divider';
 
 export function Home(): JSX.Element {
 	const navigate = useNavigate();
@@ -17,21 +19,25 @@ export function Home(): JSX.Element {
 	return (
 		<main>
 			<Container>
-				<h1>Travel Bingo</h1>
+				<Text as="h1" level={6}>
+					Travel Bingo
+				</Text>
 
-				<div>
-					<div>Want to challenge a friend?</div>
-					<Link to="create">
-						<Button>Create a Game</Button>
-					</Link>
-				</div>
-				<div>or</div>
-				<div>
+				<Text as="h2" level={2}>
+					Want to challenge a friend?
+				</Text>
+				<Link to="create">
+					<Button>Create a Game</Button>
+				</Link>
+
+				<Divider>or</Divider>
+
+				<Text as="h2" level={2}>
 					Have a code?
-					<button onClick={handleJoin} type="button">
-						<Button>Join a Game</Button>
-					</button>
-				</div>
+				</Text>
+				<button onClick={handleJoin} type="button">
+					<Button>Join a Game</Button>
+				</button>
 
 				<div>
 					<UserMgmt />

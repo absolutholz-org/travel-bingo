@@ -25,8 +25,9 @@ const darkColorSchemeCSS = css`
 const globalThemeStyles = css`
 	:root {
 		${lightColorSchemeCSS}
+		--font: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 
-		&[data-color-scheme="dark"] {
+		&[data-color-scheme='dark'] {
 			${darkColorSchemeCSS}
 		}
 
@@ -38,9 +39,7 @@ const globalThemeStyles = css`
 
 		background: hsl(var(--surface));
 		color: hsl(var(--on-surface));
-		font: normal 1em / 1.5 system-ui, -apple-system, BlinkMacSystemFont,
-			'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-			'Droid Sans', 'Helvetica Neue', sans-serif;
+		font: normal 1em / 1.5 var(--font);
 	}
 
 	a {
