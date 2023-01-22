@@ -1,5 +1,5 @@
+import Button from '@mui/material/Button';
 import { useParams } from 'react-router-dom';
-import { Button } from '../components/Button';
 
 import { Container } from '../components/Container';
 import { FreeSpace } from '../components/FreeSpace';

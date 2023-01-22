@@ -37,14 +37,14 @@ const globalThemeStyles = css`
 			}
 		}
 
-		background: hsl(var(--surface));
-		color: hsl(var(--on-surface));
+		/* background: hsl(var(--surface));
+		color: hsl(var(--on-surface)); */
 		font: normal 1em / 1.5 var(--font);
 	}
 
-	a {
+	/* a {
 		color: hsl(var(--accent));
-	}
+	} */
 `;
 
 export const GlobalTheme = (): JSX.Element => {

@@ -2,17 +2,17 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 
-import { usePlayerContext } from '../context/PlayerContext';
-import { useGameConfigContext } from '../context/GameConfigContext';
-import { Container } from '../components/Container';
-import { Button } from '../components/Button';
-import germanyConfig from '../configs/germany';
+import { usePlayerContext } from '../../context/PlayerContext';
+import { useGameConfigContext } from '../../context/GameConfigContext';
+import { Container } from '../../components/Container';
+import germanyConfig from '../../configs/germany';
 import styled from '@emotion/styled';
 import {
 	FREE_SPACE_POSITION,
 	SIGN_DIRECTORY,
 	WINNING_COMBINATIONS,
-} from '../Game.constants';
+} from '../../Game.constants';
+import Button from '@mui/material/Button';
 
 const frequencies = [
 	...new Set(germanyConfig.signs.map(({ frequency }) => frequency).flat()),

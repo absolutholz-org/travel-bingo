@@ -1,9 +1,9 @@
+import Button from '@mui/material/Button';
 import { usePubNub } from 'pubnub-react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import type { Player } from '../annotations/Player';
-import { Button } from '../components/Button';
 import { Container } from '../components/Container';
 import { Invitation } from '../components/Invitation';
 import { useGameConfigContext } from '../context/GameConfigContext/_useGameConfigContext';

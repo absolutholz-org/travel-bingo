@@ -27,7 +27,7 @@ function fontDefinition(level: FontLevel = 0): {
 	return { fontSize: '1rem', lineHeight: 1.5 };
 }
 
-export const Text = styled.div<{ level?: FontLevel }>`
+export const Typography = styled.div<{ level?: FontLevel }>`
 	${({ level = 0 }) =>
 		css`
 			font: normal ${fontDefinition(level).fontSize} /
