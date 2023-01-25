@@ -6,6 +6,7 @@ import { Typography } from '../../../../components/Typography';
 export const CreateJoinBlock = styled.div`
 	margin-left: auto;
 	margin-right: auto;
+	max-width: 100%;
 	text-align: center;
 	width: max-content;
 `;

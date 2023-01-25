@@ -1,6 +1,14 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { nanoid } from 'nanoid';
+import {
+	Checkbox,
+	FormControlLabel,
+	FormGroup,
+	Radio,
+	RadioGroup,
+	Stack,
+} from '@mui/material';
 
 import { usePlayerContext } from '../../context/PlayerContext';
 import { useGameConfigContext } from '../../context/GameConfigContext';
@@ -13,6 +21,11 @@ import {
 	WINNING_COMBINATIONS,
 } from '../../Game.constants';
 import Button from '@mui/material/Button';
+import { Typography } from '../../components/Typography';
+import { WinningCombinations } from './components/WinningCombinations';
+import { FreeSpace } from './components/FreeSpace';
+import { Signs } from './components/Signs';
+import { StickyFooter } from './components/StickyFooter';
 
 const frequencies = [
 	...new Set(germanyConfig.signs.map(({ frequency }) => frequency).flat()),
@@ -20,28 +33,6 @@ const frequencies = [
 const locations = [
 	...new Set(germanyConfig.signs.map(({ locations }) => locations).flat()),
 ];
-
-const SignLabelList = styled.div`
-	display: grid;
-	gap: 1rem;
-	grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
-`;
-const SignLabel = styled.label`
-	display: block;
-	width: 100%;
-`;
-const SignLabelImage = styled.div`
-	align-items: center;
-	aspect-ratio: 1 / 1;
-	display: flex;
-	justify-content: center;
-`;
-const SignLabelLabel = styled.div`
-	max-width: 100%;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-`;
 
 export function Create(): JSX.Element {
 	const navigate = useNavigate();
@@ -144,60 +135,35 @@ export function Create(): JSX.Element {
 	return (
 		<main>
 			<Container>
-				<h1>Create</h1>
+				<Typography as="h1" level={4}>
+					Create a Game
+				</Typography>
 
-				<div>{player?.name}</div>
-
-				<h2>Rules</h2>
+				<Typography as="h2" level={2}>
+					Rules
+				</Typography>
 
 				<form onSubmit={handleCreateGame}>
-					<fieldset>
-						<legend>Winning combinations</legend>
+					<Stack spacing={3}>
+						<WinningCombinations
+							combos={parameters.combos}
+							onChange={handleComboChange}
+						/>
 
-						{WINNING_COMBINATIONS.map((combo) => (
-							<label
-								htmlFor={`combos_${combo}`}
-								key={`combos_${combo}`}
-							>
-								<input
-									checked={parameters.combos.includes(combo)}
-									id={`combos_${combo}`}
-									onChange={handleComboChange}
-									type="checkbox"
-									value={combo}
-								/>
-								{combo}
-							</label>
-						))}
-					</fieldset>
+						<FreeSpace
+							freeSpace={parameters.freeSpace}
+							onChange={handleFreeSpaceChange}
+						/>
+					</Stack>
 
-					<fieldset>
-						<legend>Free space</legend>
-
-						{FREE_SPACE_POSITION.map((space) => (
-							<label
-								htmlFor={`free-space_${space}`}
-								key={`free-space_${space}`}
-							>
-								<input
-									checked={parameters.freeSpace === space}
-									id={`free-space_${space}`}
-									name="free-space"
-									onChange={handleFreeSpaceChange}
-									type="radio"
-									value={space}
-								/>
-								{space}
-							</label>
-						))}
-					</fieldset>
-
-					<h2>Signs</h2>
+					<Typography as="h2" level={2}>
+						Signs
+					</Typography>
 
 					<div>Currently selected: {symbols.length} symbols</div>
 
 					<fieldset>
-						<legend>Frequency</legend>
+						<Typography as="legend">Frequency</Typography>
 
 						{frequencies.map((frequency) => (
 							<label
@@ -219,7 +185,7 @@ export function Create(): JSX.Element {
 					</fieldset>
 
 					<fieldset>
-						<legend>Location</legend>
+						<Typography as="legend">Location</Typography>
 
 						{locations.map((location) => (
 							<label
@@ -240,7 +206,7 @@ export function Create(): JSX.Element {
 						))}
 					</fieldset>
 
-					<button
+					<Button
 						aria-checked={showIndividualSymbolSelection}
 						onClick={() =>
 							setShowIndividualSymbolSelection(
@@ -249,48 +215,28 @@ export function Create(): JSX.Element {
 						}
 						role="switch"
 						type="button"
+						variant="outlined"
 					>
 						Advanced selection
-					</button>
+					</Button>
 
 					{showIndividualSymbolSelection && (
-						<fieldset>
-							<legend>Included signs</legend>
-
-							<SignLabelList>
-								{germanyConfig.signs.map(
-									({ filename, id, name }) => (
-										<SignLabel
-											htmlFor={`sign_${id}`}
-											key={`sign_${id}`}
-										>
-											<SignLabelImage>
-												<img
-													alt={id}
-													loading="lazy"
-													src={`${SIGN_DIRECTORY}germany/${filename}`}
-												/>
-											</SignLabelImage>
-											<input
-												checked={symbols.includes(id)}
-												id={`sign_${id}`}
-												onChange={handleSymbolChange}
-												type="checkbox"
-												value={id}
-											/>
-											<SignLabelLabel>
-												{name.de}
-											</SignLabelLabel>
-										</SignLabel>
-									)
-								)}
-							</SignLabelList>
-						</fieldset>
+						<Signs
+							onChange={handleSymbolChange}
+							selectedSigns={symbols}
+							signs={germanyConfig.signs}
+						/>
 					)}
 
-					<button disabled={player === undefined} type="submit">
-						<Button>Create</Button>
-					</button>
+					<StickyFooter>
+						<Button
+							disabled={player === undefined}
+							type="submit"
+							variant="contained"
+						>
+							Create
+						</Button>
+					</StickyFooter>
 				</form>
 			</Container>
 		</main>

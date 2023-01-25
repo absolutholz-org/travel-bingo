@@ -23,6 +23,7 @@ const globalResetStyles = css`
 	}
 
 	html {
+		height: 100%;
 		-webkit-text-size-adjust: none; /* for iOS Safari */
 		text-size-adjust: none; /* for other mobile browsers */
 
@@ -77,6 +78,19 @@ const globalResetStyles = css`
 		overflow: visible;
 		padding: 0;
 		width: auto;
+	}
+
+	fieldset {
+		border: 0;
+		margin: 0;
+		min-width: 0;
+		padding: 0;
+	}
+
+	legend {
+		display: block;
+		padding: 0;
+		width: 100%;
 	}
 `;
 
