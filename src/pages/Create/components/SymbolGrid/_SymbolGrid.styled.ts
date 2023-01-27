@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 
-export const Signs_List = styled.div`
+export const SymbolGrid_List = styled.div`
 	display: grid;
-	gap: 1rem;
-	grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
+	gap: 0.5rem;
+	grid-template-columns: repeat(auto-fit, minmax(3rem, 1fr));
 `;
 
 export const Signs_Sign = styled.label`
@@ -23,4 +23,8 @@ export const Signs_SignLabel = styled.div`
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+
+	input:not(:checked) + & {
+		filter: grayscale(1);
+	}
 `;

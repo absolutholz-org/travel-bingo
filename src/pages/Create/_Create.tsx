@@ -24,7 +24,7 @@ import Button from '@mui/material/Button';
 import { Typography } from '../../components/Typography';
 import { WinningCombinations } from './components/WinningCombinations';
 import { FreeSpace } from './components/FreeSpace';
-import { Signs } from './components/Signs';
+import { SymbolGrid } from './components/SymbolGrid';
 import { StickyFooter } from './components/StickyFooter';
 
 const frequencies = [
@@ -106,13 +106,13 @@ export function Create(): JSX.Element {
 		});
 	}
 
-	function handleSymbolChange(event: ChangeEvent<HTMLInputElement>) {
+	function handleSymbolChange(id: string) {
 		setSymbols((symbols) => {
-			if (event.target.checked) {
-				return [...symbols, event.target.value];
+			if (symbols.includes(id)) {
+				return symbols.filter((symbol) => symbol !== id);
+			} else {
+				return [...symbols, id];
 			}
-
-			return symbols.filter((symbol) => symbol !== event.target.value);
 		});
 	}
 
@@ -162,7 +162,7 @@ export function Create(): JSX.Element {
 
 					<div>Currently selected: {symbols.length} symbols</div>
 
-					<fieldset>
+					{/* <fieldset>
 						<Typography as="legend">Frequency</Typography>
 
 						{frequencies.map((frequency) => (
@@ -204,7 +204,7 @@ export function Create(): JSX.Element {
 								{location}
 							</label>
 						))}
-					</fieldset>
+					</fieldset> */}
 
 					<Button
 						aria-checked={showIndividualSymbolSelection}
@@ -221,22 +221,14 @@ export function Create(): JSX.Element {
 					</Button>
 
 					{showIndividualSymbolSelection && (
-						<Signs
-							onChange={handleSymbolChange}
+						<SymbolGrid
+							onClick={handleSymbolChange}
 							selectedSigns={symbols}
 							signs={germanyConfig.signs}
 						/>
 					)}
 
-					<StickyFooter>
-						<Button
-							disabled={player === undefined}
-							type="submit"
-							variant="contained"
-						>
-							Create
-						</Button>
-					</StickyFooter>
+					<StickyFooter isButtonDisabled={player === undefined} />
 				</form>
 			</Container>
 		</main>
