@@ -3,14 +3,11 @@ import { usePubNub } from 'pubnub-react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import type { Player } from '../annotations/Player';
-import { Container } from '../components/Container';
-import { Invitation } from '../components/Invitation';
-import { useGameConfigContext } from '../context/GameConfigContext/_useGameConfigContext';
-import {
-	MAXIMUM_PLAYERS_ALLOWED,
-	MINIMUM_PLAYERS_REQUIRED,
-} from '../Game.constants';
+import type { Player } from '../../annotations/Player';
+import { useGameConfigContext } from '../../context/GameConfigContext/_useGameConfigContext';
+import { MINIMUM_PLAYERS_REQUIRED } from '../../Game.constants';
+import { PlayerList } from './components/PlayerList/_PlayerList';
+import { Lobby } from './_Lobby';
 
 export const enum MessageAction {
 	NewJoiner = 'new joiner',
@@ -26,8 +23,7 @@ type NewPlayerMessage = {
 export function LobbyHost(): JSX.Element {
 	const navigate = useNavigate();
 	const { gameId } = useParams();
-	const { setGameId, players, addPlayer, parameters } =
-		useGameConfigContext();
+	const { players, addPlayer, parameters } = useGameConfigContext();
 
 	const pubnub = usePubNub();
 	const [channels] = useState([`travel-bingo_${gameId}`]);
@@ -57,12 +53,6 @@ export function LobbyHost(): JSX.Element {
 	}, [pubnub, channels]);
 
 	useEffect(() => {
-		if (gameId !== undefined) {
-			setGameId(gameId);
-		}
-	}, [gameId]);
-
-	useEffect(() => {
 		console.log({ players });
 		pubnub.publish({
 			channel: channels[0],
@@ -75,37 +65,17 @@ export function LobbyHost(): JSX.Element {
 	}, [players]);
 
 	return (
-		<main>
-			<Container>
-				<h1>Game {gameId} lobby</h1>
+		<Lobby>
+			{gameId && <PlayerList players={players} />}
 
-				{gameId && (
-					<ul>
-						{players &&
-							players.map(({ id, name }) => (
-								<li key={`lobby-player_${id}`}>{name}</li>
-							))}
-
-						{[
-							...Array(
-								MAXIMUM_PLAYERS_ALLOWED - (players?.length ?? 0)
-							),
-						].map((_: undefined, index: number) => (
-							<li key={`lobby-player-slot_${index}`}>
-								<Invitation gameId={gameId} />
-							</li>
-						))}
-					</ul>
-				)}
-
-				<button
-					disabled={players.length < MINIMUM_PLAYERS_REQUIRED}
-					onClick={handleStartGame}
-					type="button"
-				>
-					<Button>Start game</Button>
-				</button>
-			</Container>
-		</main>
+			<Button
+				disabled={players.length < MINIMUM_PLAYERS_REQUIRED}
+				onClick={handleStartGame}
+				type="button"
+				variant="contained"
+			>
+				Start game
+			</Button>
+		</Lobby>
 	);
 }

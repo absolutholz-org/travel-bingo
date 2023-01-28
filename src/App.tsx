@@ -5,8 +5,8 @@ import { nanoid } from 'nanoid';
 
 import { Home } from './pages/Home';
 import { Create } from './pages/Create';
-import { LobbyHost } from './pages/LobbyHost';
-import { LobbyGuest } from './pages/LobbyGuest';
+import { LobbyHost } from './pages/Lobby';
+import { LobbyGuest } from './pages/Lobby';
 import { Game } from './pages/Game';
 import { NotFound } from './pages/404';
 import { PlayerContextProvider } from './context/PlayerContext';
