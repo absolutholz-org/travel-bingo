@@ -1,1 +1,1 @@
-export { Stack } from './_Stack.styled';
+export { Stack } from './_Stack';

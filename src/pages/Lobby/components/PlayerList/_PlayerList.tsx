@@ -5,7 +5,7 @@ import * as S from './_PlayerList.styled';
 
 export function PlayerList({ players }: PlayerListProps): JSX.Element {
 	return (
-		<S.PlayerList as="ul">
+		<S.PlayerList tag="ul">
 			{players &&
 				players.map(({ id, name }) => (
 					<li key={`lobby-player_${id}`}>{name}</li>
