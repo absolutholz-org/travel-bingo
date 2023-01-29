@@ -5,20 +5,20 @@ import { PageHeadline } from './components/PageHeadline';
 
 export function Home(): JSX.Element {
 	return (
-		<main>
-			<Container>
-				<PageHeadline>Travel Bingo</PageHeadline>
-			</Container>
+		<>
+			<main>
+				<Container>
+					<PageHeadline>Travel Bingo</PageHeadline>
+				</Container>
 
-			<Container>
-				<CreateJoinBlock />
-			</Container>
+				<Container>
+					<CreateJoinBlock />
+				</Container>
+			</main>
 
-			<Container>
-				<div>
-					<UserMgmt />
-				</div>
+			<Container as="footer">
+				<UserMgmt />
 			</Container>
-		</main>
+		</>
 	);
 }

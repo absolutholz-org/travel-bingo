@@ -1,9 +1,13 @@
+import { mdiAccount } from '@mdi/js';
 import { useParams } from 'react-router-dom';
+import { useSnackbarContext } from '../../../../context/SnackbarContext/_useSnackbarContext';
 
 import { IInvitation } from './_Invitation.annotations';
+import * as S from './_Invitation.styled';
 
 export function Invitation({}: IInvitation): JSX.Element {
 	const { gameId } = useParams();
+	const { notify } = useSnackbarContext();
 
 	const handleClick = async () => {
 		const url = `${import.meta.env.VITE_APP_URL}/lobby/${gameId}`;
@@ -14,16 +18,17 @@ export function Invitation({}: IInvitation): JSX.Element {
 				text: gameId,
 				url,
 			});
-			console.log('shared successfully');
+			notify('shared successfully');
 		} else {
 			await navigator.clipboard.writeText(url);
-			console.log('copied successfully to clipboard');
+			notify('copied successfully to clipboard');
 		}
 	};
 
 	return (
-		<button onClick={handleClick} type="button">
-			Invite a friend
-		</button>
+		<S.Invitation onClick={handleClick} type="button">
+			<S.Invitation_Icon path={mdiAccount} size={2} />
+			<div>Invite a friend</div>
+		</S.Invitation>
 	);
 }
