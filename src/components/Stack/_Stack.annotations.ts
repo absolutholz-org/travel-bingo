@@ -2,6 +2,7 @@ import { ComponentType, ReactNode } from 'react';
 
 type StackPropsBase = {
 	children: ReactNode;
+	className?: string;
 
 	direction?: 'column' | 'row';
 	spacingLevelHorizontal?: 0 | 1 | 2;

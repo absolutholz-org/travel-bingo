@@ -4,17 +4,19 @@ import * as S from './_Stack.styled';
 
 export function Stack({
 	children,
-	direction,
+	className,
+	direction = 'row',
 	shouldResetList = true,
 	spacingLevelHorizontal,
 	spacingLevelVertical,
-	tag,
+	tag = 'div',
 }: StackProps): JSX.Element {
-	const isResettableList = tag === 'ol' || tag === 'ul';
+	const isResettableList = tag === 'ol' || tag === 'ul' || tag === 'menu';
 
 	return (
 		<S.Stack
 			as={isResettableList && shouldResetList ? ResetList : tag}
+			className={className}
 			direction={direction}
 			spacingLevelHorizontal={spacingLevelHorizontal}
 			spacingLevelVertical={spacingLevelVertical}
