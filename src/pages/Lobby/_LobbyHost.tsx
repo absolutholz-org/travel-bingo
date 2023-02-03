@@ -25,44 +25,44 @@ export function LobbyHost(): JSX.Element {
 	const { gameId } = useParams();
 	const { players, addPlayer, parameters } = useGameConfigContext();
 
-	const pubnub = usePubNub();
-	const [channels] = useState([`travel-bingo_${gameId}`]);
+	// const pubnub = usePubNub();
+	// const [channels] = useState([`travel-bingo_${gameId}`]);
 
-	const handleMessage = ({ message }: { message: NewPlayerMessage }) => {
-		console.log('handling message', { message });
+	// const handleMessage = ({ message }: { message: NewPlayerMessage }) => {
+	// 	console.log('handling message', { message });
 
-		// if (message.action === MessageAction.NewJoiner) {
-		// 	addPlayer(message.player);
-		// 	return;
-		// }
-	};
+	// 	// if (message.action === MessageAction.NewJoiner) {
+	// 	// 	addPlayer(message.player);
+	// 	// 	return;
+	// 	// }
+	// };
 
 	const handleStartGame = () => {
-		pubnub.publish({
-			channel: channels[0],
-			message: {
-				action: MessageAction.StartGame,
-			},
-		});
+		// pubnub.publish({
+		// 	channel: channels[0],
+		// 	message: {
+		// 		action: MessageAction.StartGame,
+		// 	},
+		// });
 		navigate(`/game/${gameId}`);
 	};
 
-	useEffect(() => {
-		pubnub.addListener({ message: handleMessage });
-		pubnub.subscribe({ channels });
-	}, [pubnub, channels]);
+	// useEffect(() => {
+	// 	pubnub.addListener({ message: handleMessage });
+	// 	pubnub.subscribe({ channels });
+	// }, [pubnub, channels]);
 
-	useEffect(() => {
-		console.log({ players });
-		pubnub.publish({
-			channel: channels[0],
-			message: {
-				action: MessageAction.UpdatePlayerList,
-				players,
-				parameters,
-			},
-		});
-	}, [players]);
+	// useEffect(() => {
+	// 	console.log({ players });
+	// 	pubnub.publish({
+	// 		channel: channels[0],
+	// 		message: {
+	// 			action: MessageAction.UpdatePlayerList,
+	// 			players,
+	// 			parameters,
+	// 		},
+	// 	});
+	// }, [players]);
 
 	return (
 		<Lobby>

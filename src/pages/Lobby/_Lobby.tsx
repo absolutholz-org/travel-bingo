@@ -26,23 +26,23 @@ export function Lobby({ children }: { children: ReactNode }): JSX.Element {
 	// 	console.log({ player }, 'load');
 	// }, []);
 
-	useEffect(() => {
-		if (player === null) {
-			console.log({ player }, 'effect');
-			setIsOpenPlayerDialog(true);
-		}
-	}, [player]);
+	// useEffect(() => {
+	// 	if (player === null) {
+	// 		console.log({ player }, 'effect');
+	// 		setIsOpenPlayerDialog(true);
+	// 	}
+	// }, [player]);
 
-	// console.log({ player }, 'other');
+	// // console.log({ player }, 'other');
 
-	function handlePlayerDialogClose({ name }: { name?: string }) {
-		if (name) {
-			const player = { name, id: nanoid() };
-			setPlayer(player);
-			addPlayer(player);
-			setIsOpenPlayerDialog(false);
-		}
-	}
+	// function handlePlayerDialogClose({ name }: { name?: string }) {
+	// 	if (name) {
+	// 		const player = { name, id: nanoid() };
+	// 		setPlayer(player);
+	// 		addPlayer(player);
+	// 		setIsOpenPlayerDialog(false);
+	// 	}
+	// }
 
 	return (
 		<SnackbarContextProvider>
@@ -58,10 +58,10 @@ export function Lobby({ children }: { children: ReactNode }): JSX.Element {
 					message="I love snacks"
 				/>
 			</main>
-			<PlayerDialog
+			{/* <PlayerDialog
 				open={isOpenPlayerDialog}
 				onClose={handlePlayerDialogClose}
-			/>
+			/> */}
 		</SnackbarContextProvider>
 	);
 }

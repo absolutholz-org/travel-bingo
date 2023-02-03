@@ -1,31 +1,18 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { nanoid } from 'nanoid';
-import {
-	Checkbox,
-	FormControlLabel,
-	FormGroup,
-	Radio,
-	RadioGroup,
-	Stack,
-} from '@mui/material';
 
 import { usePlayerContext } from '../../context/PlayerContext';
 import { useGameConfigContext } from '../../context/GameConfigContext';
 import { Container } from '../../components/Container';
 import germanyConfig from '../../configs/germany';
-import styled from '@emotion/styled';
-import {
-	FREE_SPACE_POSITION,
-	SIGN_DIRECTORY,
-	WINNING_COMBINATIONS,
-} from '../../Game.constants';
 import Button from '@mui/material/Button';
 import { Typography } from '../../components/Typography';
 import { WinningCombinations } from './components/WinningCombinations';
 import { FreeSpace } from './components/FreeSpace';
 import { SymbolGrid } from './components/SymbolGrid';
 import { StickyFooter } from './components/StickyFooter';
+import { Stack } from '../../components/Stack';
 
 const frequencies = [
 	...new Set(germanyConfig.signs.map(({ frequency }) => frequency).flat()),
@@ -56,8 +43,8 @@ export function Create(): JSX.Element {
 		const gameId = nanoid(5);
 
 		setGameId(gameId);
-		setPlayers(player === null ? [] : [player]);
-		setHost(player);
+		// setPlayers(player === null ? [] : [player]);
+		// setHost(player);
 		setParameters((parameters) => {
 			return { ...parameters, symbols };
 		});
@@ -144,7 +131,7 @@ export function Create(): JSX.Element {
 				</Typography>
 
 				<form onSubmit={handleCreateGame}>
-					<Stack spacing={3}>
+					<Stack spacingLevelVertical={3}>
 						<WinningCombinations
 							combos={parameters.combos}
 							onChange={handleComboChange}
