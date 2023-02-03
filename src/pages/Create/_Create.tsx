@@ -49,7 +49,7 @@ export function Create(): JSX.Element {
 			return { ...parameters, symbols };
 		});
 
-		navigate(`/lobby/${gameId}/host`);
+		navigate(`/lobby/${gameId}/game`);
 	}
 
 	function handleComboChange(event: ChangeEvent<HTMLInputElement>) {
