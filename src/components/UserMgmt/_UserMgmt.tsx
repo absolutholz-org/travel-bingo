@@ -16,7 +16,7 @@ export function UserMgmt({ onLogIn, onLogOut }: IUserMgmt): JSX.Element {
 	const handleLogOut = () => {
 		if (player !== null) {
 			logOut();
-			onLogOut && onLogOut(player);
+			onLogOut && onLogOut(player!);
 		}
 	};
 
