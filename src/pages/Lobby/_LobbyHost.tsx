@@ -31,10 +31,10 @@ export function LobbyHost(): JSX.Element {
 	const handleMessage = ({ message }: { message: NewPlayerMessage }) => {
 		console.log('handling message', { message });
 
-		if (message.action === MessageAction.NewJoiner) {
-			addPlayer(message.player);
-			return;
-		}
+		// if (message.action === MessageAction.NewJoiner) {
+		// 	addPlayer(message.player);
+		// 	return;
+		// }
 	};
 
 	const handleStartGame = () => {
@@ -69,7 +69,7 @@ export function LobbyHost(): JSX.Element {
 			{gameId && <PlayerList players={players} />}
 
 			<Button
-				disabled={players.length < MINIMUM_PLAYERS_REQUIRED}
+				// disabled={players.length < MINIMUM_PLAYERS_REQUIRED}
 				onClick={handleStartGame}
 				type="button"
 				variant="contained"

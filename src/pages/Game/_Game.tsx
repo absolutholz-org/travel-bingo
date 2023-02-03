@@ -1,15 +1,15 @@
 import Button from '@mui/material/Button';
 import { useParams } from 'react-router-dom';
 
-import { Container } from '../components/Container';
-import { FreeSpace } from '../components/FreeSpace';
-import { GameGrid } from '../components/GameGrid';
-import { SignButton } from '../components/SignButton/_SignButton';
+import { Container } from '../../components/Container';
+import { GameGrid } from '../../components/GameGrid';
+import { SignButton } from '../../components/SignButton/_SignButton';
 import {
 	GamePlayContextProvider,
 	GridSquare,
 	useGamePlayContext,
-} from '../context/GamePlayContext';
+} from '../../context/GamePlayContext';
+import * as S from './_Game.styled';
 
 export function Game(): JSX.Element {
 	const { gameId } = useParams();
@@ -51,7 +51,9 @@ const _GridSquare = ({
 					status={status}
 				/>
 			) : (
-				<FreeSpace disabled>Free Space</FreeSpace>
+				<S.FreeSpace disabled>
+					<S.FreeSpace_Text>Free Space</S.FreeSpace_Text>
+				</S.FreeSpace>
 			)}
 		</>
 	);
@@ -72,7 +74,7 @@ function _Game(): JSX.Element {
 	return (
 		<main>
 			<Container>
-				<h1>Game</h1>
+				<h1 hidden>Game</h1>
 
 				{grid && (
 					<GameGrid>
@@ -86,8 +88,13 @@ function _Game(): JSX.Element {
 				)}
 
 				<div>
-					<Button>
-						<button onClick={handleBingoClick}>BINGO!</button>
+					<Button
+						onClick={handleBingoClick}
+						size="large"
+						sx={{ display: 'flex', width: '100%' }}
+						variant="contained"
+					>
+						BINGO!
 					</Button>
 				</div>
 			</Container>

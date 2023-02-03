@@ -28,16 +28,16 @@ export function LobbyGuest(): JSX.Element {
 	const handleMessage = ({ message }: { message: PlayersMessage }) => {
 		console.log('handling message', { message });
 
-		if (message.action === MessageAction.UpdatePlayerList) {
-			setPlayers(message.players);
-			setParameters(message.parameters);
-			return;
-		}
+		// if (message.action === MessageAction.UpdatePlayerList) {
+		// 	setPlayers(message.players);
+		// 	setParameters(message.parameters);
+		// 	return;
+		// }
 
-		if (message.action === MessageAction.StartGame) {
-			navigate(`/game/${gameId}`);
-			return;
-		}
+		// if (message.action === MessageAction.StartGame) {
+		// 	navigate(`/game/${gameId}`);
+		// 	return;
+		// }
 	};
 
 	useEffect(() => {
