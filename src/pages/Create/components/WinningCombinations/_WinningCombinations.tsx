@@ -10,7 +10,7 @@ export function WinningCombinations({
 	onChange,
 }: WinningCombinationsProps): JSX.Element {
 	return (
-		<fieldset>
+		<Stack direction="column" spacingLevelVertical={1} tag="fieldset">
 			<Typography as="legend" level={1}>
 				Winning combinations
 			</Typography>
@@ -28,6 +28,6 @@ export function WinningCombinations({
 					</label>
 				))}
 			</Stack>
-		</fieldset>
+		</Stack>
 	);
 }

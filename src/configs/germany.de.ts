@@ -1,0 +1,117 @@
+export const translations = {
+	'101_gefahrstelle': 'Gefahrstelle',
+	'101-11_fussgaengerueberweg-rechts':
+		'Fußgängerüberweg – Aufstellung rechts',
+	'101-15_steinschlag-rechts': 'Steinschlag – Aufstellung rechts',
+	'101-21_fussgaengerueberweg-links': 'Fußgängerüberweg – Aufstellung links',
+	'101-25_steinschlag-links': 'Steinschlag – Aufstellung links',
+	'101-51_schnee-oder-eisglaette': 'Schnee- oder Eisglätte',
+	'101-52_splitt-schotter': 'Splitt, Schotter',
+	'101-54_unzureichendes-lichtraumprofil': 'Unzureichendes Lichtraumprofil',
+	'105-10_doppelkurve-links-rechts': 'Doppelkurve – zunächst links',
+	'105-20_doppelkurve-rechts-links': 'Doppelkurve – zunächst rechts',
+	'112_unebene-fahrbahn': 'Unebene Fahrbahn',
+	'114_schleuder-rutschgefahr': 'Schleuder- oder Rutschgefahr',
+	'120_verengte-fahrbahn': 'Verengte Fahrbahn',
+	'123_arbeitsstelle': 'Arbeitsstelle',
+	'124_stau': 'Stau',
+	'125_gegenverkehr': 'Gegenverkehr',
+	'131_lichtzeichenanlage': 'Lichtzeichen­anla­ge',
+	'133-10_fussgaenger-rechts': 'Fußgänger – Aufstellung rechts',
+	'133-20_fussgaenger-links': 'Fußgänger – Aufstellung links',
+	'136-10_kinder-rechts': 'Kinder – Aufstellung rechts',
+	'136-20_kinder-links': 'Kinder – Aufstellung links',
+	'138-10_radverkehr-rechts': 'Radverkehr – Aufstellung rechts',
+	'138-20_radverkehr-links': 'Radverkehr – Aufstellung links',
+	'142-10_wildwechsel-rechts': 'Wildwechsel – Aufstellung rechts',
+	'142-20_wildwechsel-links': 'Wildwechsel – Aufstellung links',
+	'151_bahnuebergang': 'Bahnübergang',
+	'205_vorfahrt-gewaehren': 'Vorfahrt gewähren',
+	'206_halt': 'Halt. Vorfahrt gewährenVorfahrt gewähren',
+	'208_gegenverkehr-vorrang': 'Vorrang des Gegenverkehrs',
+	'209_fahrtrichtung-rechts': 'Vorgeschriebene Fahrtrichtung – rechts',
+	'209-10_fahrtrichtung-links': 'Vorgeschriebene Fahrtrichtung – links',
+	'209-30_fahrtrichtung-geradeaus':
+		'Vorgeschriebene Fahrtrichtung – geradeaus',
+	'211-10_fahrtrichtung-hier-links':
+		'Vorgeschriebene Fahrtrichtung — hier links',
+	'211_fahrtrichtung-hier-rechts':
+		'Vorgeschriebene Fahrtrichtung — hier rechts',
+	'215_kreisverkehr': 'Kreisverkehr',
+	'220-10_einbahnstrasse-links': 'Einbahnstraße – linksweisend',
+	'220-20_einbahnstrasse-rechts': 'Einbahnstraße – rechtlinksweisend',
+	'222-10_vorbeifahrt-links': 'Vorgeschriebene Vorbeifahrt – links vorbei',
+	'222_vorbeifahrt-rechts': 'Vorgeschriebene Vorbeifahrt – rechts vorbei',
+	'224_haltestelle': 'Haltestelle',
+	'229_taxenstand': 'Taxenstand',
+	'237_sonderweg-radfahrer': 'Radweg',
+	'239_gehweg': 'Gehweg',
+	'242.1_fussgaengerzone-beginn': 'Beginn einer Fußgängerzone',
+	'242.2_fussgaengerzone-ende': 'Ende einer Fußgängerzone',
+	'244.3_fahrradzone-beginn': 'Beginn einer Fahrradstraße',
+	'244.4_fahrradzone-ende': 'Ende einer Fahrradstraße',
+	'245_bussonderfahrstreifen': 'Bussonder­fahr­streifen',
+	'250_fahrzeuge-verbot': 'Verbot für Fahrzeuge aller Art',
+	'267_einfahrt-verbot': 'Verbot der Einfahrt',
+	'270.1_umweltzone-beginn':
+		'Beginn eines Verkehrs­verbots zur Vermin­derung schädlicher Luftverunreinigungen in einer Zone',
+	'270.2_umweltzone-ende':
+		'Ende eines Verkehrs­verbots zur Vermin­derung schädlicher Luftverunreinigungen in einer Zone',
+	'272_wendens-verbot': 'Verbot des Wendens',
+	'274-100_hoechstgeschwindigkeit-100':
+		'Zulässige Höchst­geschwindigkeit: 100',
+	'274-110_hoechstgeschwindigkeit-110':
+		'Zulässige Höchst­geschwindigkeit: 110',
+	'274-120_hoechstgeschwindigkeit-120':
+		'Zulässige Höchst­geschwindigkeit: 120',
+	'274-130_hoechstgeschwindigkeit-130':
+		'Zulässige Höchst­geschwindigkeit: 130',
+	'274-30_hoechstgeschwindigkeit-30': 'Zulässige Höchst­geschwindigkeit: 30',
+	'274-40_hoechstgeschwindigkeit-40': 'Zulässige Höchst­geschwindigkeit: 40',
+	'274-50_hoechstgeschwindigkeit-50': 'Zulässige Höchst­geschwindigkeit: 50',
+	'274-60_hoechstgeschwindigkeit-60': 'Zulässige Höchst­geschwindigkeit: 60',
+	'274-70_hoechstgeschwindigkeit-70': 'Zulässige Höchst­geschwindigkeit: 70',
+	'274-80_hoechstgeschwindigkeit-80': 'Zulässige Höchst­geschwindigkeit: 80',
+	'274-90_hoechstgeschwindigkeit-90': 'Zulässige Höchst­geschwindigkeit: 90',
+	'274.1_zone-30-beginn': 'Beginn einer Tempo 30-Zone',
+	'274.2_zone-30-ende': 'Ende einer Tempo 30-Zone',
+	'276_ueberholverbot-kraftfahrzeuge':
+		'Überholverbot für Kraftfahrzeuge aller Art',
+	'277_ueberholverbot-kraftfahrzeuge-schwer':
+		'Überholverbot für Kraftfahrzeuge über 3,5 t',
+	'280_ueberholverbot-kraftfahrzeuge-ende':
+		'Ende des Überholverbotes für Kraftfahrzeuge aller Art',
+	'281_ueberholverbot-kraftfahrzeuge-schwer-ende':
+		'Ende des Überholverbotes für Kraftfahrzeuge über 3,5 t',
+	'282_ende-saemtlicher-verbote':
+		'Ende sämtlicher streckenbezogen­er Geschwindigkeits­beschränkungen und Überholverbote',
+	'283_haltverbot-absolutes': 'Absolutes Haltverbot',
+	'290.1_zone-halteverbot-beginn':
+		'Beginn eines eingeschränkten Haltverbotes für eine Zone',
+	'290.2_zone-halteverbot-ende':
+		'Ende eines eingeschränkten Haltverbotes für eine Zone',
+	'306_vorfahrtstrasse': 'Vorfahrtstraße',
+	'308_vorrang-vor-dem-gegenverkehr': 'Vorrang vor dem Gegenverkehr',
+	'314_parken': 'Parken',
+	'314-50_parkhaus-parkgarage': 'Parkhaus, Parkgarage',
+	'314.1_zone-parkraum-beginn': 'Beginn einer Parkraum­bewirtschaftungszone',
+	'314.2_zone-parkraum-ende': 'Ende einer Parkraum­bewirtschaftungszone',
+	'325.1_verkehrsberuhigtes-bereich-beginn':
+		'Beginn eines verkehrsberuhigten Bereichs',
+	'325.2_verkehrsberuhigtes-bereichs-ende':
+		'Ende eines verkehrsberuhigten Bereichs',
+	'327_tunnel': 'Tunnel',
+	'330.1_autobahn': 'Autobahn',
+	'330.2_autobahn-ende': 'Ende der Autobahn',
+	'331.1_kraftfahrstrasse-beginn': 'Kraftfahrstraße',
+	'331.2_kraftfahrstrasse-ende': 'Ende der Kraftfahrstraße',
+	'333_ausfahrt-autobahn': 'Ausfahrt von der Autobahn',
+	'333.1_ausfahrt-nicht-autobahn':
+		'Ausfahrt von anderen Straßen außerhalb der Autobahn',
+	'350-10_fussgaengerueberweg-rechts': 'Fußgängerüberweg, Aufstellung rechts',
+	'350-20_fussgaengerueberweg-links': 'Fußgängerüberweg, Aufstellung links',
+	'357_sackgasse': 'Sackgasse',
+	'454-10_umleitung-links': 'Umleitungs­wegweiser, linksweisend',
+	'454-20_umleitung-rechts': 'Umleitungs­wegweiser, rechtsweisend',
+	'720_gruenpfeil': 'Grünpfeilschild',
+};

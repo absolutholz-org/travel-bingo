@@ -1,24 +1,35 @@
+import { Link } from 'react-router-dom';
+import Button from '@mui/material/Button';
+
+import { Billboard } from '../../components/Billboard';
 import { Container } from '../../components/Container';
-// import { UserMgmt } from '../../components/UserMgmt';
-import { CreateJoinBlock } from './components/CreateJoinBlock';
-import { PageHeadline } from './components/PageHeadline';
+import { PageSection } from '../../components/PageSection';
+import { SiteFooter } from '../../components/SiteFooter';
 
 export function Home(): JSX.Element {
 	return (
 		<>
 			<main>
-				<Container>
-					<PageHeadline>Travel Bingo</PageHeadline>
-				</Container>
+				<Billboard>
+					<Container>
+						<h1>Travel Bingo</h1>
+					</Container>
+				</Billboard>
 
-				<Container>
-					<CreateJoinBlock />
-				</Container>
+				<PageSection>
+					<Container>
+						<Button
+							component={Link}
+							to="create"
+							variant="contained"
+						>
+							Create a game
+						</Button>
+					</Container>
+				</PageSection>
 			</main>
 
-			{/* <Container as="footer">
-				<UserMgmt />
-			</Container> */}
+			<SiteFooter />
 		</>
 	);
 }

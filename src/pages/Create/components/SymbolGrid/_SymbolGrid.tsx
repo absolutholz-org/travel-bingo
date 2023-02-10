@@ -1,24 +1,31 @@
-import { SelectableSymbol } from '../SelectableSymbol';
+import { Stack } from '../../../../components/Stack';
+import { Typography } from '../../../../components/Typography';
+import { SelectableSymbol } from '../../../../pages_old/Create/components/SelectableSymbol';
 import { SymbolGridProps } from './_SymbolGrid.annotations';
 import * as S from './_SymbolGrid.styled';
 
-export function SymbolGrid({ onClick, selectedSigns, signs }: SymbolGridProps) {
+export function SymbolGrid({
+	onClick,
+	selectedSymbols,
+	symbols,
+}: SymbolGridProps) {
 	return (
-		<fieldset>
-			<legend>Included signs</legend>
+		<Stack direction="column" spacingLevelVertical={1} tag="fieldset">
+			<Typography as="legend" level={1}>
+				Symbols
+			</Typography>
 
 			<S.SymbolGrid_List>
-				{signs.map(({ filename, id, name }) => (
+				{symbols.map(({ filename, id }) => (
 					<SelectableSymbol
 						filename={filename}
 						id={id}
-						isSelected={selectedSigns.includes(id)}
+						isSelected={selectedSymbols.includes(id)}
 						key={`sign_${id}`}
-						name={name}
 						onClick={() => onClick(id)}
 					/>
 				))}
 			</S.SymbolGrid_List>
-		</fieldset>
+		</Stack>
 	);
 }

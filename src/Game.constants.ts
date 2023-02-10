@@ -6,5 +6,5 @@ export const SIGN_DIRECTORY = './signs/optimized/';
 export const WINNING_COMBINATIONS = ['rows', 'columns', 'diagonals', 'corners'];
 // Object.freeze(WINNING_COMBINATIONS);
 
-export const FREE_SPACE_POSITION = ['center', 'random', 'none'];
-Object.freeze(FREE_SPACE_POSITION);
+export const FREE_SPACE_POSITIONS = ['center', 'random', 'none'];
+// Object.freeze(FREE_SPACE_POSITIONS);

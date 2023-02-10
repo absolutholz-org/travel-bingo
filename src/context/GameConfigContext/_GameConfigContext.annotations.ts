@@ -1,13 +1,13 @@
 import { Dispatch, SetStateAction } from 'react';
 import type { Player } from '../../annotations/Player';
 import {
-	FREE_SPACE_POSITION,
+	FREE_SPACE_POSITIONS,
 	WINNING_COMBINATIONS,
 } from '../../Game.constants';
 
 // type Combos = 'rows' | 'columns' | 'diagonals' | 'corners';
 type Combos = typeof WINNING_COMBINATIONS[number];
-type FreeSpace = typeof FREE_SPACE_POSITION[number];
+type FreeSpace = typeof FREE_SPACE_POSITIONS[number];
 
 export interface GameParameters {
 	size: number;

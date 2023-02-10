@@ -5,7 +5,6 @@ import * as S from './_SelectableSymbol.styled';
 export function SelectableSymbol({
 	filename,
 	id,
-	name,
 	isSelected,
 	onClick,
 }: SelectableSymbolProps): JSX.Element {

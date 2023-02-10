@@ -1,1 +1,1 @@
-export { StickyFooter } from './_StickyFooter';
+export { StickyFooter } from './_StickyFooter.styled';
